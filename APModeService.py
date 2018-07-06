@@ -1,22 +1,27 @@
 import RPi.GPIO as GPIO
 from flask import Flask, request
+from threading import Thread
+import subprocess
 
 #Pin Definitions
-buttonPin = 17 #Pin 11 on pi
+buttonPin = 4 #Pin 7 on pi
 
 #Variables
 buttonPressed = False
 
 app = Flask(__name__)
 
+timer = threading.Timer(15.0, NetworkAdded)
+
 # Hardware
 def buttonPressed():
+    print "Button Pressed"
     buttonPressed = True
-    subprocess.call(['./Scripts/EraseNetworks'])
     subprocess.call(['./Scripts/APMode start'])
     start_server()
+    timer.start()
 
-def setup():
+def setupHardware():
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
@@ -38,27 +43,33 @@ def postSSIDProtected(ssid, password):
 
 # Helper Functions
 def AddNetwork(ssid, password):
-    subprocess.call(['./Scripts/AddNetwork', ssid, password])
+    subprocess.call(['sudo',  './Scripts/AddNetwork', ssid, password])
+    print "Network Added"
+    NetworkAdded()
 
 def NetworkAdded():
-    buttonPressed = False
+    isButtonPressed = False
+    timer.cancel()
     stop_server
 
 def start_server():
     app.run(host='0.0.0.0')
+    print "Server Started"
 
 def stop_server():
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
+    print "Server Stopped"
 
 
 # Main
 if __name__ == '__main__':
     setupHardware()
-    setupWebserver()
-
-    while True:
-        if GPIO.input(buttonPin) and buttonPressed == False:
-            buttonPressed()
+    try:
+        while True:
+            if GPIO.input(buttonPin) and not buttonPressed:
+                buttonPressed()
+    except:
+        stop_server()
