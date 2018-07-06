@@ -6,10 +6,10 @@ DIR=/etc/dhcpcd.conf
 if [[ "$arg" == "start" ]]; then
     echo 'Starting Access Point'
     sudo systemctl start hostapd.service && sudo systemctl start dnsmasq.service
-    echo 'nohook wpa_supplicant' >> DIR
-    echo 'interface wlan0' >> DIR
-    echo 'static ip_address=192.168.50.10/24' >> DIR
-    echo 'static routers=192.168.50.1' >> DIR
+    echo 'nohook wpa_supplicant' >> $DIR
+    echo 'interface wlan0' >> $DIR
+    echo 'static ip_address=192.168.50.10/24' >> $DIR
+    echo 'static routers=192.168.50.1' >> $DIR
 
 elif [[ "$arg" == "stop" ]]; then
     echo 'Stopping Access Point'
@@ -18,3 +18,6 @@ elif [[ "$arg" == "stop" ]]; then
 else
     echo 'Invalid Argument'
 fi
+
+sudo systemctl daemon-reload
+sudo systemctl restart dhcpcd
