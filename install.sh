@@ -19,7 +19,7 @@ DAEMON_CONF="/etc/hostapd/hostapd.conf"
 EOL
 
 # DNSmasq Configuration
-cat >> $DNSMASQCONF << EOL
+cat > $DNSMASQCONF << EOL
 interface=wlan0
 bind-dynamic 
 domain-needed
