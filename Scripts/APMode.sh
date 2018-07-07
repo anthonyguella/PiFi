@@ -19,5 +19,4 @@ else
     echo 'Invalid Argument'
 fi
 
-sudo systemctl daemon-reload
-sudo systemctl restart dhcpcd
+python RefreshNetworkSettings.py
