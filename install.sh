@@ -1,9 +1,5 @@
 #!/bin/bash
 
-HOSTCONFDIR=/etc/hostapd/hostapd.conf
-HOSTAPDDIR=/etc/default/hostapd
-DNSMASQCONF=/etc/dnsmasq.conf
-
 # Install Dependencies
 sudo apt-get update
 sudo apt-get upgrade
@@ -23,6 +19,9 @@ sudo cp ./Config/Host/dnsmasq.conf /etc/dnsmasq.conf
 
 # Webserver Setup
 sudo cp ./Scripts/hotspotWebserver.py /usr/bin/hotspotWebserver.py
+
+# AddNetwork
+sudo cp ./Scripts/addNetwork.sh /usr/bin/addNetwork.sh
 
 # APModeService Setup
 sudo cp ./Scripts/autohotspot.service /etc/systemd/system/autohotspot.service

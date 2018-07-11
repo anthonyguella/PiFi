@@ -20,7 +20,7 @@ def postSSIDProtected(ssid, password):
 
 # Helper Functions
 def AddNetwork(ssid, password):
-    subprocess.call(['sudo',  './AddNetwork.sh', "'" + ssid + "'", "'" + password + "'"])
+    subprocess.call(['sudo',  '/usr/bin/addNetwork.sh', "'" + ssid + "'", "'" + password + "'"])
     print "Network Added"
     NetworkAdded()
 
