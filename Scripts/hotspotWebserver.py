@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from flask import Flask, request
 import subprocess
 
@@ -13,23 +11,22 @@ def verify():
 @app.route("/wifi/<ssid>", methods = ['POST'])
 def postSSID(ssid):
     AddNetwork(ssid)
-    return success
+    return "success"
 
 @app.route("/wifi/<ssid>/<password>", methods = ['POST'])
 def postSSIDProtected(ssid, password):
     AddNetwork(ssid, password)
-    return success
+    return "success"
 
 # Helper Functions
 def AddNetwork(ssid, password):
-    subprocess.call(['sudo',  './Scripts/AddNetwork', ssid, password])
+    subprocess.call(['sudo',  './AddNetwork.sh', "'" + ssid + "'", "'" + password + "'"])
     print "Network Added"
     NetworkAdded()
 
 def NetworkAdded():
-    isButtonPressed = False
-    timer.cancel()
     stop_server
+    subprocess.call(['sudo',  'reboot'])
 
 def start_server():
     app.run(host='0.0.0.0')
@@ -41,7 +38,6 @@ def stop_server():
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
     print "Server Stopped"
-
 
 # Main
 if __name__ == '__main__':
