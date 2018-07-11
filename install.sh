@@ -4,25 +4,26 @@ HOSTCONFDIR=/etc/hostapd/hostapd.conf
 HOSTAPDDIR=/etc/default/hostapd
 DNSMASQCONF=/etc/dnsmasq.conf
 
-# Hostapd Configuration
-cat > $HOSTCONFDIR << EOL
-interface=wlan0
-driver=nl80211
-ssid=PiFi
-hw_mode=g
-channel=6
-EOL
+# Install Dependencies
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install hostapd
+sudo apt-get install dnsmasq
 
-# Hostapd Defaults
-cat > $HOSTAPDDIR << EOL
-DAEMON_CONF="/etc/hostapd/hostapd.conf"
-EOL
+# Disable Services
+sudo systemctl disable hostapd
+sudo systemctl disable dnsmasq
+
+# Hostapd Configuration
+sudo cp ./Config/Host/hostapd.conf /etc/hostapd/hostapd.conf
+sudo cp ./Config/Host/hostapd /etc/defaut/hostapd
 
 # DNSmasq Configuration
-cat > $DNSMASQCONF << EOL
-interface=wlan0
-bind-dynamic 
-domain-needed
-bogus-priv
-dhcp-range=192.168.50.150,192.168.50.200,255.255.255.0,12h
-EOL
+sudo cp ./Config/Host/dnsmasq.conf /etc/dnsmasq.conf
+
+# Webserver Setup
+sudo cp ./Scripts/
+
+# APModeService Setup
+sudo cp ./Scripts/autohotspot.service /etc/ /etc/systemd/system/autohotspot.service
+sudo systemctl enable autohotspot.service   
