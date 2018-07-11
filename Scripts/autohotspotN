@@ -47,6 +47,7 @@ createAdHocNetwork()
     systemctl start dnsmasq
     systemctl start hostapd
     echo 1 > /proc/sys/net/ipv4/ip_forward
+    python /usr/bin/hotspotWebserver.py
 }
 
 KillHotspot()
@@ -59,6 +60,7 @@ KillHotspot()
     ip addr flush dev "$wifidev"
     ip link set dev "$wifidev" up
     dhcpcd  -n "$wifidev" >/dev/null 2>&1
+    pkill -9 python
 }
 
 ChkWifiUp()

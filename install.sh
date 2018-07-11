@@ -22,6 +22,7 @@ sudo cp ./Config/Host/hostapd /etc/default/hostapd
 sudo cp ./Config/Host/dnsmasq.conf /etc/dnsmasq.conf
 
 # Webserver Setup
+sudo cp ./Scripts/hotspotWebserver.py /usr/bin/hotspotWebserver.py
 
 # APModeService Setup
 sudo cp ./Scripts/autohotspot.service /etc/systemd/system/autohotspot.service
