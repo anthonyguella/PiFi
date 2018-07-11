@@ -16,14 +16,14 @@ sudo systemctl disable dnsmasq
 
 # Hostapd Configuration
 sudo cp ./Config/Host/hostapd.conf /etc/hostapd/hostapd.conf
-sudo cp ./Config/Host/hostapd /etc/defaut/hostapd
+sudo cp ./Config/Host/hostapd /etc/default/hostapd
 
 # DNSmasq Configuration
 sudo cp ./Config/Host/dnsmasq.conf /etc/dnsmasq.conf
 
 # Webserver Setup
-sudo cp ./Scripts/
 
 # APModeService Setup
-sudo cp ./Scripts/autohotspot.service /etc/ /etc/systemd/system/autohotspot.service
+sudo cp ./Scripts/autohotspot.service /etc/systemd/system/autohotspot.service
+sudo cp ./Scripts/autohotspotN /usr/bin/autohotspotN
 sudo systemctl enable autohotspot.service   
