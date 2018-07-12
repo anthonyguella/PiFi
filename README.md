@@ -1,38 +1,39 @@
 # PiFi
 
-PiFi allows you to set the network settings of a raspberry pi by turning it into a hotspot with the click of a button.
+## About 
 
-This project is currently under development. The end goal is to create an iPhone app that can set the new wifi credentials.
+PiFi allows you to set the network settings of a raspberry pi through a webserver.
+The pi will automatically go into hotspot mode when disconnected from wifi.
 
+## QuickStart
 
-## Installation
+#### Installation
 
-PiFi requires Raspbian Jessie. Stretch is not yet supported. These instructions assume a clean install.
-
-#### Update Raspbian
-```sh
-$ sudo apt-get update
-$ sudo apt-get upgrade
-```
-
-#### Install dependencies:
-
-```sh
-$ sudo apt-get install hostapd
-$ sudo apt-get install dnsmasq
-```
-
-Next we have to disable hostapd and dnsmasq from launching on startup. This is because we only want to go into AP mode when the button is pressed.
-
-```sh
-$ sudo systemctl disable hostapd
-$ sudo systemctl disable dnsmasq
-```
-
-#### Install Service
+This version of PiFi was developed for Raspbian Stretch. Older versions may have unintended behavior.
 
 ```sh
 $ sudo ./install.sh
+```
+
+#### Usage
+
+When no network is detected, the pi will become an unprotected hotspot with the SSID: `PiFi`
+
+The ip of the pi is static and is set to: `192.168.50.5`
+
+The webserver is run on `192.168.50.5:5000` and the following commands are avaliable:
+
+| Path  | Type | Description |
+| ------------- | ------------- | ------------- |
+| / | GET | Returns "PiFi" to verify that you are connected to a PiFi device|
+| /wifi/{SSID}/{Password}  | POST | Sets the provided SSID and Password and attempts to connect |
+| /wifi/{SSID}  | POST  | Same as above but for unprotected networks |
+
+
+##### Uninstall
+
+```sh
+$ sudo ./uninstall.sh
 ```
 
 License
