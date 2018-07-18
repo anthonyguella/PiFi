@@ -17,24 +17,7 @@ $ sudo ./install.sh
 
 #### Usage
 
-When no network is detected, the pi will become an unprotected hotspot with the SSID: `PiFi`
-
-The ip of the pi is static and is set to: `192.168.50.5`
-
-The webserver is run on `192.168.50.5:5000` and the following commands are avaliable:
-
-| Path  | Type | Description |
-| ------------- | ------------- | ------------- |
-| / | GET | Returns "PiFi" to verify that you are connected to a PiFi device|
-| /wifi/{SSID}/{Password}  | POST | Sets the provided SSID and Password and attempts to connect |
-| /wifi/{SSID}  | POST  | Same as above but for unprotected networks |
-
-
-##### Uninstall
-
-```sh
-$ sudo ./uninstall.sh
-```
+See the [PiFi docs](https://documenter.getpostman.com/view/3580973/RWMEQV5x) on [getpostman.com](https://www.getpostman.com/) for the full documentation.
 
 License
 ----
