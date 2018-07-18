@@ -1,8 +1,8 @@
 #!/bin/bash
 
 DIR=/etc/wpa_supplicant/wpa_supplicant.conf
-SSID=$(eval echo $1)
-PASSWORD=$(eval echo $2)
+SSID=$1
+PASSWORD=$2
 
 echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" > $DIR
 echo "update_config=1" >> $DIR

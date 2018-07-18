@@ -3,55 +3,40 @@ import subprocess
 
 app = Flask(__name__)
 
+
 # Server
+
 @app.route("/verify")
 def verify():
-    return "pifi"
+    return jsonify(pifi=True)
 
-@app.route("/getssids")
-def getSSIDs():
-    return parseSSID()
+@app.route("/wifi", methods = ['GET', 'POST'])
+def wifi():
+    if request.method == 'GET':
+        return parseSSID()
+    if request.method == 'POST':
+        ssid = request.form['ssid']
+        password = request.form.get('password', "")
+        returnCode = AddNetwork(ssid, password)
+        if returnCode == 0:
+            return jsonify(success=True)
+        else:
+            return jsonify(success=False)
 
-@app.route("/wifi/<ssid>", methods = ['POST'])
-def postSSID(ssid):
-    returnCode = AddNetwork(ssid)
-    if returnCode == 0:
-        return "success"
-    else:
-        return "failure"
-
-@app.route("/wifi/<ssid>/<password>", methods = ['POST'])
-def postSSIDProtected(ssid, password):
-    returnCode = AddNetwork(ssid, password)
-    if returnCode == 0:
-        return "success"
-    else:
-        return "failure"
 
 # Helper Functions
+
 def AddNetwork(ssid, password):
     returnCode = subprocess.call(['sudo',  '/usr/bin/addNetwork.sh', ssid, password])
     NetworkAdded()
     return returnCode
 
 def NetworkAdded():
-    process = subprocess.Popen("sleep 3; sudo reboot", shell=True)
+    process = subprocess.Popen("sleep 2; sudo reboot", shell=True)
 
 def start_server():
     app.run(host='0.0.0.0')
     print "Server Started"
-
-def stop_server():
-    func = request.environ.get('werkzeug.server.shutdown')
-    if func is None:
-        raise RuntimeError('Not running with the Werkzeug Server')
-    func()
-    print "Server Stopped"
-
-def subprocess_cmd(command):
-    process = subprocess.Popen(command,stdout=subprocess.PIPE, shell=True)
-    proc_stdout = process.communicate()[0].strip()
-    print proc_stdout
 
 def parseSSID():
     returnCode = subprocess.call(["sudo iwlist wlan0 scan > /tmp/scanOutput"], shell=True)
