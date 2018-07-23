@@ -8,6 +8,9 @@ sudo rm -f /etc/default/hostapd
 # DNSmasq Configuration
 sudo rm -f /etc/dnsmasq.conf
 
+# dhcpcd Configuration
+sudo cp ./Config/Original/dhcpcd.conf /etc/dhcpcd.conf
+
 # Webserver Setup
 sudo rm -f /usr/bin/hotspotWebserver.py
 
