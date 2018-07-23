@@ -17,6 +17,9 @@ sudo cp ./Config/hostapd /etc/default/hostapd
 # DNSmasq Configuration
 sudo cp ./Config/dnsmasq.conf /etc/dnsmasq.conf
 
+# dhcpcd Configuration
+sudo cp ./Config/dhcpcd.conf /etc/dhcpcd.conf
+
 # Webserver Setup
 sudo cp ./Scripts/hotspotWebserver.py /usr/bin/hotspotWebserver.py
 
