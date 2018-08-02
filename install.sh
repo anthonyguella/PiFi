@@ -6,6 +6,11 @@ sudo apt-get upgrade
 sudo apt-get install hostapd
 sudo apt-get install dnsmasq
 
+# Install Python dependencies
+pip install Flask
+pip install request
+pip install jsonify
+
 # Disable Services
 sudo systemctl disable hostapd
 sudo systemctl disable dnsmasq
