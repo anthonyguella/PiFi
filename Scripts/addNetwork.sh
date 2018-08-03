@@ -12,7 +12,7 @@ PASSWORD=$2
 ERROR=$(tput setaf 1)
 SUCESS=$(tput setaf 2)
 MESSAGE=$(tput setaf 6)
-NORMAL=$(tput setaf 9)
+NORMAL=$(tput sgr0)
 
 # Check first argument
 if [ -z ${1+x} ]
