@@ -5,6 +5,7 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install hostapd
 sudo apt-get install dnsmasq
+sudo pip install flask
 
 # Disable Services
 sudo systemctl disable hostapd
